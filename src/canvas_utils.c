@@ -6,11 +6,11 @@
 /*   By: ysalmi <ysalmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:30:59 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/05/31 20:01:58 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/02 15:41:00 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
 void	paint_pxl(t_canvas *c, int x, int y, int color)
 {

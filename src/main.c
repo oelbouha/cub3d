@@ -6,11 +6,11 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:19:49 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/05/31 21:54:36 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/02 15:39:57 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
 void	pers(t_canvas *c)
 {

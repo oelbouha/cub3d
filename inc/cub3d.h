@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/05/31 19:47:16 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/02 15:40:40 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include <stdio.h>
 
@@ -58,6 +58,9 @@ enum e_keys
 /**************************************/
 
 typedef struct s_canvas	t_canvas;
+typedef struct s_vect	t_vect;
+typedef struct s_camera	t_camera;
+typedef struct s_house	t_house;
 typedef struct s_data	t_data;
 
 struct s_canvas
@@ -71,13 +74,42 @@ struct s_canvas
 	int		h;
 };
 
+struct s_vect
+{
+	double	x;
+	double	y;
+};
+
+struct s_camera
+{
+	t_vect	pos;
+	t_vect	dir;
+	t_vect	plane;
+};
+
+struct	s_house
+{
+	char		**map;
+	t_canvas	north;
+	t_canvas	south;
+	t_canvas	west;
+	t_canvas	east;
+	int			ceiling;
+	int			floor;
+};
+
 struct s_data
 {
-	void	*mlx;
-	void	*win;
+	void		*mlx;
+	void		*win;
+	t_camera	cam;
+	t_house		house;
 };
 
 
+/**************************************/
+/***** 			Prototypes		*******/
+/**************************************/
 
 
 int		init_canvas(t_data *data, t_canvas *c);
