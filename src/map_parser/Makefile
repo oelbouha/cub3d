@@ -5,24 +5,37 @@
 #                                                     +:+ +:+         +:+      #
 #    By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/27 20:14:07 by ysalmi            #+#    #+#              #
-#    Updated: 2023/06/07 21:41:11 by oelbouha         ###   ########.fr        #
+#    Created: 2023/06/07 21:41:54 by oelbouha          #+#    #+#              #
+#    Updated: 2023/06/09 11:55:41 by oelbouha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := cub3d
+NAME := parser
+
 CC := cc
 CFLAGS := -Wall -Werror -Wextra
 MLX_DIR := /Users/oelbouha/Desktop/cub3d/minilibx
 MLXFLAGS := -lmlx -L$(MLX_DIR) -framework OpenGL -framework AppKit
-I := -I./inc -I./libft/inc -I$(MLX_DIR) -I./gnline
-LIBFT := libft/libft.a
-GNLINE := gnline/gnline.a
 
-SRC := index.c \
-	canvas_utils.c \
-	map_parser/parser.c \
-	map_parser/print_error_msg.c
+I := -I../../inc \
+	-I ../../libft/inc \
+	-I$(MLX_DIR) \
+	-I../../gnline
+
+LIBFT := ../../libft/libft.a
+LIBFT_DIR := ../../libft
+GNLINE_DIR := ../../gnline
+GNLINE := ../../gnline/gnline.a
+
+SRC :=	main.c \
+		parser.c \
+		print.error.msg.c \
+		destroy.textures.c \
+		utils.c \
+		create.rgb.c \
+		create.colors.c \
+		open.textures.c \
+		get.rectangle.map.c 
 
 OBJ := $(addprefix obj/,$(SRC:.c=.o))
 
@@ -32,46 +45,37 @@ R :=\x1b[31;01m
 B :=\x1b[43;01m
 O :=\x1b[33;01m
 
-all: libmlx libft $(NAME)
+all: libmlx libft $(NAME) run
 
 $(NAME): $(OBJ) $(LIBFT) $(GNLINE)
-	$(CC) $(CFLAGS) $(MLXFLAGS) $I -o $@ $^
+	@$(CC) $(CFLAGS) $(MLXFLAGS) $I -o $@ $^
 	@echo "\n$O$(NAME)$N $Gcreated$N"
+	
+run: 
+	./parser ../../maps/map.cub
 
 $(LIBFT): libft
 
 libft:
-	@$(MAKE) -C libft
+	@$(MAKE) -C $(LIBFT_DIR)
 
 libmlx:
 	@$(MAKE) -C $(MLX_DIR)
 
-obj/%.o: src/%.c
+obj/%.o: %.c
 	@mkdir -p $(shell dirname $@)
 	@echo "Compiling $B$<$N..."
 	@$(CC) $(CFLAGS) $I -c $< -o $@
 
 clean:
-	@make -C libft clean
-	@echo "$RDeleting $(NAME) object files...$N"
+	@make -C $(LIBFT_DIR) clean
 	@rm -rf obj
-	@echo "$RDone.$N\n"
 
 fclean:
-	@make -C libft fclean
-	@echo "$RDeleting $(NAME) object files...$N"
+	@make -C $(LIBFT_DIR) fclean
 	@rm -rf obj/
-	@echo "$RDone.$N\n"
-	@echo "$RDeleting $O$(NAME) and $(BONUS)$R..."
 	@rm -rf $(NAME)
-	@rm -rf $(BONUS)
-	@echo "$RDone.$N\n"
-
 
 re: fclean all
 
-clear:
-	clear
-
 .PHONY: all clean fclean re clear libft
-

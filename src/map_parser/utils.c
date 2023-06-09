@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/07 21:31:21 by oelbouha         ###   ########.fr       */
+/*   Created: 2023/06/07 23:03:06 by oelbouha          #+#    #+#             */
+/*   Updated: 2023/06/08 16:08:04 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parser.h"
 
-int	main(int c, char **v)
+void	print(t_list *lst)
 {
-	t_data	d;
-
-	if (c != 2)
-		return (1);
-	d.house = parse_map(v[1]);
+	while (lst)
+	{
+		printf("lst: %s\n", lst->content);
+		lst = lst->next;
+	}
+}
+void	print_arr(char **arr)
+{
+	for(int i = 0; arr[i]; i++)
+		printf("arr[]: %s:\n",  arr[i]);
 }

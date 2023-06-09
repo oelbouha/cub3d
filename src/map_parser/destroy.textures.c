@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   destroy.textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/07 21:31:21 by oelbouha         ###   ########.fr       */
+/*   Created: 2023/06/07 22:11:09 by oelbouha          #+#    #+#             */
+/*   Updated: 2023/06/07 22:11:30 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parser.h"
 
-int	main(int c, char **v)
+int	destroy_north_img(t_data *data)
 {
-	t_data	d;
+	mlx_destroy_image(data->mlx, data->house.north.img);
+	return (1);
+}
 
-	if (c != 2)
-		return (1);
-	d.house = parse_map(v[1]);
+int	destroy_south_img(t_data *data)
+{
+	destroy_north_img(data);
+	mlx_destroy_image(data->mlx, data->house.south.img);
+	return (1);
+}
+
+int	destroy_west_img(t_data *data)
+{
+	destroy_south_img(data);
+	mlx_destroy_image(data->mlx, data->house.west.img);
+	return (1);
 }

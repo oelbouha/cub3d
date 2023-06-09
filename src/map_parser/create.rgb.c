@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   create.rgb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/07 21:31:21 by oelbouha         ###   ########.fr       */
+/*   Created: 2023/06/08 11:44:47 by oelbouha          #+#    #+#             */
+/*   Updated: 2023/06/08 11:45:11 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parser.h"
 
-int	main(int c, char **v)
+int	create_rgb(int r, int g, int b)
 {
-	t_data	d;
-
-	if (c != 2)
-		return (1);
-	d.house = parse_map(v[1]);
+	return (r << 16 | g << 8 | b);
 }

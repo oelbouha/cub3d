@@ -3,38 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:15:59 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/02 12:37:35 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/09 12:37:56 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parser.h"
 
-int	strnmatch(const char *s, char *matches, char delimiter, int n)
+int	check_line(t_house *house, t_data *data, t_list **lst, char *trimed)
 {
-	int		ret;
+	t_list	*node;
 
-	ret = 1;
-	while (matches)
+	if (ft_strnmatch(trimed, "NO:SO:WE:EA", ':', 2))
 	{
-		if (ft_strncmp(s, matches, n) == 0 
-			&& (*(matches + n) == delimiter || *(matches + n) == 0))
-			return (ret);
-		ret++;
-		matches = ft_strchr(matches, delimiter);
-		matches += matches != NULL;
+		if (open_textures(trimed, house, data))
+			return (ft_lstclear(lst, free), 1);
 	}
+	else if (ft_strnmatch(trimed, "F:C", ':', 1))
+	{
+		if (create_colors(trimed, house))
+			return (ft_lstclear(lst, free), 1);
+	}
+	else if (ft_issubset(" ", trimed) == 0)
+	{
+		node = ft_lstnew(trimed);
+		if (node == NULL)
+			return (ft_lstclear(lst, free), 1);
+		ft_lstadd_back(lst, node);
+	}
+	else
+		free(trimed);
 	return (0);
 }
 
-t_house	parse_map(char *file)
+t_house	parse_map(char *file, t_data data)
 {
-	t_house	house;
-	int		fd;
-	char	*line;
+	t_house		house;
+	t_list		*lst;
+	char		*trimed;
+	char		*line;
+	int			fd;
 
+	lst = NULL;
 	ft_bzero(&house, sizeof(t_house));
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -42,8 +54,13 @@ t_house	parse_map(char *file)
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (line)
+		if (line == NULL)
 			break ;
-		else if (strnmatch(line, "NO:SO:WE:EA", ':', 2))
+		trimed = ft_strtrim(line, "\n");
+		if (check_line(&house, &data, &lst, trimed))
+			return (free(line), ft_lstclear(&lst, free), house);
+		free(line);
 	}
+	house.map = get_rectangle_map(lst);
+	return (ft_lstclear(&lst, free), house);
 }

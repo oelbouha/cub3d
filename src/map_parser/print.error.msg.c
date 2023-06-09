@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   print_error_msg.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/07 21:31:21 by oelbouha         ###   ########.fr       */
+/*   Created: 2023/05/31 21:36:12 by oelbouha          #+#    #+#             */
+/*   Updated: 2023/06/08 11:52:25 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int c, char **v)
+void	print_error_msg(char *msg)
 {
-	t_data	d;
-
-	if (c != 2)
-		return (1);
-	d.house = parse_map(v[1]);
+	ft_putstr_fd("cub3d: ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 }
