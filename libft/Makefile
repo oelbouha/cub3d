@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+         #
+#    By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 11:17:13 by ysalmi            #+#    #+#              #
-#    Updated: 2023/05/13 18:24:21 by ysalmi           ###   ########.fr        #
+#    Updated: 2023/06/08 12:57:10 by oelbouha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ SRC := ft_atoi.c \
 		print_number.c \
 		print_hex.c \
 		ft_replace.c \
+		ft_strnmatch.c \
 		utils.c
 
 OBJF := $(SRC:%.c=%.o)

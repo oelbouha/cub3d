@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:44:13 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/05/13 18:25:07 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/08 12:56:59 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ size_t	ft_strlcat(char *dst, char const *src, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_templatecmp(const char *str, const char *template, char delimiter);
+int		ft_strnmatch(const char *s, char *matches, char delimiter, int n);
 int		ft_issubset(char *set, char *str);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);

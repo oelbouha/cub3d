@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/11 19:58:49 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/12 18:36:33 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <math.h>
 # include <float.h>
 # include "libft.h"
+# include "get_next_line.h"
 
 # define TITLE "Cub3D"
 # define WIDTH 1080
