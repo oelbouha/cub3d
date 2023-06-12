@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/02 15:40:40 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/11 19:58:49 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <mlx.h>
+# include <math.h>
+# include <float.h>
 # include "libft.h"
 
+# define TITLE "Cub3D"
 # define WIDTH 1080
 # define HEIGHT 760
 
@@ -59,6 +62,7 @@ enum e_keys
 
 typedef struct s_canvas	t_canvas;
 typedef struct s_vect	t_vect;
+typedef struct s_vect_i	t_vect_i;
 typedef struct s_camera	t_camera;
 typedef struct s_house	t_house;
 typedef struct s_data	t_data;
@@ -80,6 +84,12 @@ struct s_vect
 	double	y;
 };
 
+struct s_vect_i
+{
+	int	x;
+	int	y;
+};
+
 struct s_camera
 {
 	t_vect	pos;
@@ -90,6 +100,8 @@ struct s_camera
 struct	s_house
 {
 	char		**map;
+	int			w;
+	int			h;
 	t_canvas	north;
 	t_canvas	south;
 	t_canvas	west;
@@ -102,19 +114,50 @@ struct s_data
 {
 	void		*mlx;
 	void		*win;
+	t_canvas	view;
+	t_canvas	minimap;
 	t_camera	cam;
 	t_house		house;
 };
+
+typedef struct s_hit
+{
+	int		done;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_dist;
+	double	wall_pos;
+}	t_hit;
 
 
 /**************************************/
 /***** 			Prototypes		*******/
 /**************************************/
 
+int	is_map_enclosed(char **map);
+
+
+
+int		init_minimap(t_data *d);
+void	draw_minimap(t_data *d);
+
+t_hit	raycaster(t_data *d, t_vect pos, t_vect ray);
+
 
 int		init_canvas(t_data *data, t_canvas *c);
 void	paint_pxl(t_canvas *c, int x, int y, int color);
 int		get_pxl_color(t_canvas *c, int x, int y);
 void	paint_canvas(t_canvas *c, int color);
+
+
+
+/**************************************/
+/***** 			Debug utils		*******/
+/**************************************/
+
+void	print_vect(t_vect v, char *name);
+void	print_vect_i(t_vect_i v, char *name);
 
 #endif

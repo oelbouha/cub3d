@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:15:59 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/02 12:37:35 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/05 11:48:09 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	strnmatch(const char *s, char *matches, char delimiter, int n)
 	}
 	return (0);
 }
-
+/*
 t_house	parse_map(char *file)
 {
 	t_house	house;
@@ -47,3 +47,4 @@ t_house	parse_map(char *file)
 		else if (strnmatch(line, "NO:SO:WE:EA", ':', 2))
 	}
 }
+*/

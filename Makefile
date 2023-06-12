@@ -6,7 +6,7 @@
 #    By: ysalmi <ysalmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/27 20:14:07 by ysalmi            #+#    #+#              #
-#    Updated: 2023/06/02 10:50:25 by ysalmi           ###   ########.fr        #
+#    Updated: 2023/06/11 20:01:24 by ysalmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,20 @@ NAME := cub3d
 CC := cc
 CFLAGS := -Wall -Werror -Wextra
 MLX_DIR := /Users/ysalmi/code/in_progress/cub3d/minilibx
-MLXFLAGS := -lmlx -L$(MLX_DIR) -framework OpenGL -framework AppKit
+MLXFLAGS := -lm -lmlx -L$(MLX_DIR) -framework OpenGL -framework AppKit
 I := -I./inc -I./libft/inc -I$(MLX_DIR)
 LIBFT := libft/libft.a
 
-SRC := main.c \
-	canvas_utils.c
+
+MAP_PARSER := map_parser/parser.c \
+	map_parser/analyse_map.c
+
+SRC := index.c \
+	minimap.c \
+	raycaster.c \
+	$(MAP_PARSER) \
+	canvas_utils.c \
+	debug_utils.c
 
 OBJ := $(addprefix obj/,$(SRC:.c=.o))
 
@@ -32,16 +40,16 @@ O :=\x1b[33;01m
 all: libmlx libft $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(MLXFLAGS) $I -o $@ $^
+	@$(CC) $(CFLAGS) $(MLXFLAGS) $I -o $@ $^
 	@echo "\n$O$(NAME)$N $Gcreated$N"
 
 $(LIBFT): libft
 
 libft:
-	@$(MAKE) -C libft
+	@$(MAKE) -s -C libft
 
 libmlx:
-	@$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) -s -C $(MLX_DIR)
 
 obj/%.o: src/%.c
 	@mkdir -p $(shell dirname $@)
