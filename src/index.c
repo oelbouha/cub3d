@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/12 18:37:03 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/13 13:28:53 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	destroy(t_data *d)
 char	**get_map(void)
 {
 	char	**map = malloc(6 * sizeof(char *));
-	map[0] = ft_strdup("       11111111111111");
-	map[1] = ft_strdup("111111110001000000001");
-	map[2] = ft_strdup("100000101000000000001");
-	map[3] = ft_strdup("111111N00000000011111");
-	map[4] = ft_strdup("     111111111111    ");
+	map[0] = ft_strdup("11111");
+	map[1] = ft_strdup("10001");
+	map[2] = ft_strdup("10N01");
+	map[3] = ft_strdup("10001");
+	map[4] = ft_strdup("11111");
 	map[5] = NULL;
 	return (map);
 }
@@ -68,23 +68,22 @@ int	main(int c, char **v)
 	(void)c;
 	(void)v;
 	
-	//if (init(&d))
-	//	return (destroy(&d), 77);
+	if (init(&d))
+		return (destroy(&d), 77);
 	d.house.map = get_map();
 	d.house.w = ft_strlen(d.house.map[0]);
 	d.house.h = 5;
-	d.cam.pos.x = 6.0;
-	d.cam.pos.y = 3.5;
+	d.cam.pos = (t_vect){.x = 2.5, .y = 2.5};
 	d.cam.dir = (t_vect){.x = 1.0, .y = 0};
 
 	for (int i = 0; d.house.map[i]; i++)
 		printf("%s\n", d.house.map[i]);
 	printf("\n");
 
-	t_vect ray = {.x = 5.0, .y = -1.0};
-	
-	raycaster(&d, d.cam.pos, ray);
-	//draw_minimap(&d);
-	//mlx_loop(d.mlx);
+	//t_vect ray = {.x = -1.0, .y = 0.0};
+	//raycaster(&d, d.cam.pos, ray);
+
+	draw_minimap(&d);
+	mlx_loop(d.mlx);
 	return (0);
 }

@@ -6,19 +6,19 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 12:27:10 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/12 18:34:02 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/13 20:21:57 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#define LARGE_NUMBER 1000000000000
+#define LARGE_NUMBER 10000000
 
 int	abs(int n)
 {
 	return (n * (n > 0) - n * (n < 0));
 }
 
-t_hit	raycaster(t_data *d, t_vect pos, t_vect ray)
+t_vect	raycaster(t_data *d, t_vect pos, t_vect ray)
 {
 	t_hit		hit;
 	t_vect		yl;
@@ -40,20 +40,19 @@ t_hit	raycaster(t_data *d, t_vect pos, t_vect ray)
 	if (ray.y)
 		xl = (t_vect){.x = ray.x / ray.y, .y = pos.x - (ray.x / ray.y) * pos.y};
 
-	printf("next y: %d\n",((int)(pos.y + step.y * (step.y > 0))));
 	dist = (t_vect){.x = LARGE_NUMBER, .y = LARGE_NUMBER};
 	if (ray.y != 0)
 		dist.x = xl.x * ((int)(pos.y + step.y * (step.y > 0))) + xl.y;
 	if (ray.x != 0)
 		dist.y = yl.x * ((int)(pos.x + step.x * (step.x > 0))) + yl.y;
 
-	print_vect_i(coords, "coords");
-	print_vect_i(step, "step");
 	print_vect(ray, "ray");
 	print_vect(pos, "pos");
 	print_vect(yl, "y(x)");
 	print_vect(xl, "x(y)");
-	print_vect(dist, "dist to next col/row");
+	print_vect_i(coords, "coords");
+	print_vect_i(step, "step");
+	print_vect(dist, "dist: the value of x/y when the next y/x is reached");
 	//t_vect diff = (t_vect){.x = coords.x - (int)dist.x, .y = coords.y - (int)dist.y};
 	//print_vect(diff, "diff");
 	
@@ -65,39 +64,39 @@ t_hit	raycaster(t_data *d, t_vect pos, t_vect ray)
 	print_vect_i(coords, "coords");
 
 	printf("loop:\n");
+	print_vect(dist, "dist");
 	while (d->house.map[coords.y][coords.x] != '1')
 	{
-		if ((int)dist.x > step.x * coords.x)
+		if ((step.x > 0 && (int)dist.x > coords.x) || (step.x < 0 && (int)dist.x < coords.x))
 		{
+			printf("x.");
 			dist.y += fabs(yl.x) * step.y;
 			coords.x += step.x;
 			hit.side = 0;
-			printf("x.");
 		}
 		else
 		{
+			printf("y.");
 			dist.x += fabs(xl.x) * step.x;
 			coords.y += step.y;
 			hit.side = 1;
-			printf("y.");
 		}
 		printf("map[%d][%d]: [%c]\n", coords.y, coords.x, d->house.map[coords.y][coords.x]);
+		print_vect(dist, "dist");
 	}
-	printf("\b\n");
+	printf("\nside:%d\n\n", hit.side);
 	print_vect_i(coords, "coords");
 	print_vect(dist, "dist to next col/row");
 
 	if (hit.side == 1)
 	{
 		dist.y = coords.y + (step.y < 0);
-		if (xl.x)
-			dist.x = xl.x * dist.y + xl.y;
+		dist.x = xl.x * dist.y + xl.y;
 	}
 	else
 	{
 		dist.x = coords.x + (step.x < 0);
-		if (yl.x)
-			dist.y = yl.x * dist.x + yl.y;
+		dist.y = yl.x * dist.x + yl.y;
 	}
 
 
@@ -115,7 +114,8 @@ t_hit	raycaster(t_data *d, t_vect pos, t_vect ray)
 	print_vect(dist, "dist to next col/row");
 
 	printf("perpdist = %d\n", 1);
-	return (hit);
+	usleep(200);
+	return (dist);
 }
 //
 // hit.side

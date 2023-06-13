@@ -6,18 +6,15 @@
 #    By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/27 20:14:07 by ysalmi            #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/06/11 20:01:24 by ysalmi           ###   ########.fr        #
-=======
+#    Updated: 2023/06/13 11:50:39 by ysalmi           ###   ########.fr        #
 #    Updated: 2023/06/07 21:41:11 by oelbouha         ###   ########.fr        #
->>>>>>> 67e7479b9f8b2bd0282df78a17c0908217bb49f1
 #                                                                              #
 # **************************************************************************** #
 
 NAME := cub3d
 CC := cc
 CFLAGS := -Wall -Werror -Wextra
-MLX_DIR := /Users/oelbouha/Desktop/cub3d/minilibx
+MLX_DIR := $(shell pwd)/minilibx
 MLXFLAGS := -lmlx -L$(MLX_DIR) -framework OpenGL -framework AppKit
 I := -I./inc -I./libft/inc -I$(MLX_DIR) -I./gnline
 LIBFT := libft/libft.a
@@ -30,10 +27,9 @@ MAP_PARSER := map_parser/parser.c \
 SRC := index.c \
 	minimap.c \
 	raycaster.c \
-	$(MAP_PARSER) \
 	canvas_utils.c \
+	draw_line.c \
 	debug_utils.c
-bb49f1
 
 OBJ := $(addprefix obj/,$(SRC:.c=.o))
 

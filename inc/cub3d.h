@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/12 18:36:33 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/13 13:00:26 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define TITLE "Cub3D"
 # define WIDTH 1080
-# define HEIGHT 760
+# define HEIGHT 1080
 
 
 /**************************************/
@@ -144,7 +144,8 @@ int	is_map_enclosed(char **map);
 int		init_minimap(t_data *d);
 void	draw_minimap(t_data *d);
 
-t_hit	raycaster(t_data *d, t_vect pos, t_vect ray);
+//t_hit	raycaster(t_data *d, t_vect pos, t_vect ray);
+t_vect	raycaster(t_data *d, t_vect pos, t_vect ray);
 
 
 int		init_canvas(t_data *data, t_canvas *c);
@@ -152,6 +153,7 @@ void	paint_pxl(t_canvas *c, int x, int y, int color);
 int		get_pxl_color(t_canvas *c, int x, int y);
 void	paint_canvas(t_canvas *c, int color);
 
+void	draw_line(t_canvas *c, t_vect_i s, t_vect_i e, int color);
 
 
 /**************************************/

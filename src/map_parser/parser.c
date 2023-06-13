@@ -6,11 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:15:59 by ysalmi            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/05 11:48:09 by ysalmi           ###   ########.fr       */
-=======
-/*   Updated: 2023/06/09 12:37:56 by oelbouha         ###   ########.fr       */
->>>>>>> 67e7479b9f8b2bd0282df78a17c0908217bb49f1
+/*   Updated: 2023/06/12 20:22:07 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +37,6 @@ int	check_line(t_house *house, t_data *data, t_list **lst, char *trimed)
 		free(trimed);
 	return (0);
 }
-<<<<<<< HEAD
 /*
 t_house	parse_map(char *file)
 =======
