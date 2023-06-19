@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 10:06:02 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/13 13:04:16 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/19 10:54:28 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,19 @@
 
 void	draw_line(t_canvas *c, t_vect_i s, t_vect_i e, int color)
 {
-	t_vect		slop;
-	t_vect_i	step;
-	int			done;
+	int	x0 = s.x;
+	int	y0 = s.y;
+	int	x1 = e.x;
+	int	y1 = e.y;
+    int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+    int dy = abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+    int err = (dx > dy ? dx : -dy) / 2;
 
-	step = (t_vect_i){.x = 1 - 2 * ( s.x > e.x ), .y = 1 - 2 * (s.y > e.y)};
-	if (e.x == s.x)
+    while (x0 != x1 || y0 != y1)
 	{
-		while (s.y != e.y)
-		{
-			paint_pxl(c, s.x, s.y, color);
-			s.y += step.y;
-		}
-		return ;
-	}
-	slop.x = 1.0 * (e.y - s.y) / (e.x - s.x);
-	slop.y = e.y - 1.0 * slop.x * e.x;
-	done = 0;
-	while (!done)
-	{
-		int	y = slop.x * s.x + slop.y;
-		while (y == s.y && !done)
-		{
-			paint_pxl(c, s.x, s.y, color);
-			s.x += step.x;
-			if (s.x == e.x && s.y == e.y)
-				done = 1;
-			y = slop.x * s.x + slop.y;
-		}
-		s.y += step.y;
-		paint_pxl(c, s.x, s.y, color);
-		if (s.x == e.x && s.y == e.y)
-			done = 1;
-	}
+		paint_pxl(c, x0, y0, color);
+        int e2 = err;
+        if (e2 > -dx) { err -= dy; x0 += sx; }
+        if (e2 <  dy) { err += dx; y0 += sy; }
+    }
 }

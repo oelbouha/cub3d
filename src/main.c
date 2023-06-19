@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:19:49 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/02 15:39:57 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/19 13:14:22 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,37 @@ int	main(void)
 	mlx_put_image_to_window(d.mlx, d.win, c.img, 0, 0);
 	mlx_loop(d.mlx);
 }
+
+// get_color(data, hit, float posx, int posy)
+//
+// image
+//
+// f(hit, posx, posy) => x, y => color
+// x = posx * c.w;
+// y = f(hit.line_height, posy) = posy / n;
+//
+// {
+// 		hit.line_heigt = n * c.h
+// 		n = 1
+// 			y = posy;
+//		n = 2
+//			posy = 0 => y = 0
+//			posy = 1 => y = 0
+//			posy = 2 => y = 1
+//			posy = 3 => y = 1
+//			y = posy / 2
+//		n = 0.5
+//			posy = 0 => y = 0
+//			posy = 1 => y = 2  1/0.5 = 2
+//
+//
+//		y = posy / n;
+// }
+//
+//
+//
+//
+//
+//
+//
+//

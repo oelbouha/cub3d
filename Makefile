@@ -6,7 +6,7 @@
 #    By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/27 20:14:07 by ysalmi            #+#    #+#              #
-#    Updated: 2023/06/13 11:50:39 by ysalmi           ###   ########.fr        #
+#    Updated: 2023/06/19 10:09:28 by ysalmi           ###   ########.fr        #
 #    Updated: 2023/06/07 21:41:11 by oelbouha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -25,7 +25,10 @@ MAP_PARSER := map_parser/parser.c \
 	map_parser/analyse_map.c
 
 SRC := index.c \
+	init.c \
 	minimap.c \
+	scene.c \
+	rotation.c \
 	raycaster.c \
 	canvas_utils.c \
 	draw_line.c \

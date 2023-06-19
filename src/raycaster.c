@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 12:27:10 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/13 20:21:57 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/19 12:07:03 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	abs(int n)
 	return (n * (n > 0) - n * (n < 0));
 }
 
-t_vect	raycaster(t_data *d, t_vect pos, t_vect ray)
+
+
+t_hit	raycaster(t_data *d, t_vect pos, t_vect ray)
 {
 	t_hit		hit;
 	t_vect		yl;
@@ -28,11 +30,14 @@ t_vect	raycaster(t_data *d, t_vect pos, t_vect ray)
 	t_vect		dist;
 
 	(void)d;
+	int	debug = 0;
 
 	ft_bzero(&hit, sizeof(t_hit));
 	coords = (t_vect_i){.x = (int) pos.x, .y = (int) pos.y};
 	step = (t_vect_i){.x = 1 - 2 * (ray.x < 0), .y = 1 - 2 * (ray.y < 0)};
 
+	/****		Init		****/
+	/***************************/
 	yl = (t_vect){.x = 0, .y = pos.y};
 	xl = (t_vect){.x = 0, .y = pos.x};
 	if (ray.x)
@@ -42,84 +47,95 @@ t_vect	raycaster(t_data *d, t_vect pos, t_vect ray)
 
 	dist = (t_vect){.x = LARGE_NUMBER, .y = LARGE_NUMBER};
 	if (ray.y != 0)
-		dist.x = xl.x * ((int)(pos.y + step.y * (step.y > 0))) + xl.y;
+		dist.x = xl.x * ((int)(pos.y + (step.y > 0))) + xl.y;
 	if (ray.x != 0)
-		dist.y = yl.x * ((int)(pos.x + step.x * (step.x > 0))) + yl.y;
+		dist.y = yl.x * ((int)(pos.x + (step.x > 0))) + yl.y;
 
-	print_vect(ray, "ray");
-	print_vect(pos, "pos");
-	print_vect(yl, "y(x)");
-	print_vect(xl, "x(y)");
-	print_vect_i(coords, "coords");
-	print_vect_i(step, "step");
-	print_vect(dist, "dist: the value of x/y when the next y/x is reached");
-	//t_vect diff = (t_vect){.x = coords.x - (int)dist.x, .y = coords.y - (int)dist.y};
-	//print_vect(diff, "diff");
-	
-	if (abs(coords.x - (int)dist.x) >= abs(coords.y - (int)dist.y))
-		coords.x += step.x;
-	else
-		coords.y += step.y;
-
-	print_vect_i(coords, "coords");
-
-	printf("loop:\n");
-	print_vect(dist, "dist");
-	while (d->house.map[coords.y][coords.x] != '1')
+	if (debug)
 	{
-		if ((step.x > 0 && (int)dist.x > coords.x) || (step.x < 0 && (int)dist.x < coords.x))
-		{
-			printf("x.");
-			dist.y += fabs(yl.x) * step.y;
-			coords.x += step.x;
-			hit.side = 0;
-		}
-		else
-		{
-			printf("y.");
-			dist.x += fabs(xl.x) * step.x;
-			coords.y += step.y;
-			hit.side = 1;
-		}
-		printf("map[%d][%d]: [%c]\n", coords.y, coords.x, d->house.map[coords.y][coords.x]);
-		print_vect(dist, "dist");
+		print_vect(pos, "pos");
+		print_vect(yl, "y[x]");
+		print_vect(xl, "x[y]");
 	}
-	printf("\nside:%d\n\n", hit.side);
-	print_vect_i(coords, "coords");
-	print_vect(dist, "dist to next col/row");
 
+	/****		dist		****/
+	/***************************/
+	int	done = 0;
+	//if (abs(coords.x - (int)dist.x) >= abs(coords.y - (int)dist.y))
+	if (fabs(xl.x) >= fabs(yl.x))
+	{/****	if x changes faster than y	****/
+		while (!done)
+		{
+			while (coords.x != (int)dist.x)
+			{
+				coords.x += step.x;
+				if (d->house.map[coords.y][coords.x] == '1')
+				{
+					hit.side = 0;
+					done = 1;
+					break ;
+				}
+			}
+			if (!done)
+			{
+				coords.y += step.y;
+				if (d->house.map[coords.y][coords.x] == '1')
+				{
+					hit.side = 1;
+					done = 1;
+				}
+				dist.x += step.x * fabs(xl.x);
+			}
+		}
+	}
+	else
+	{/****	if y changes faster than x	****/
+		while (!done)
+		{
+			while (coords.y != (int)dist.y)
+			{
+				coords.y += step.y;
+				if (d->house.map[coords.y][coords.x] == '1')
+				{
+					hit.side = 1;
+					done = 1;
+					break ;
+				}
+			}
+			if (!done)
+			{
+				coords.x += step.x;
+				if (d->house.map[coords.y][coords.x] == '1')
+				{
+					hit.side = 0;
+					done = 1;
+				}
+				dist.y += step.y * fabs(yl.x);
+			}
+		}
+	}
+
+	/****	Adjust dist		****/
 	if (hit.side == 1)
 	{
 		dist.y = coords.y + (step.y < 0);
 		dist.x = xl.x * dist.y + xl.y;
+		hit.side = TOP * (step.y > 0) + BOTTOM * (step.y < 0);
+		hit.wall_pos = dist.x - (int)dist.x;
 	}
 	else
 	{
 		dist.x = coords.x + (step.x < 0);
 		dist.y = yl.x * dist.x + yl.y;
+		hit.side = LEFT * (step.x > 0) + RIGHT * (step.x < 0);
+		hit.wall_pos = dist.y - ((int)dist.y);
 	}
-
-
-	{
-		if (hit.side == 0 && step.x > 0)
-			printf("left\n");
-		else if (hit.side == 0 && step.x < 0)
-			printf("right\n");
-		else if (hit.side == 1 && step.y > 0)
-			printf("top\n");
-		else
-			printf("bottom\n");
-	}
+	hit.dist = dist;
+	dist.x -= pos.x;
+	dist.y -= pos.y;
+	hit.wall_dist = dist.x * d->cam.dir.x + dist.y * d->cam.dir.y;
+	hit.line_height = 0.5 *  HEIGHT / hit.wall_dist;
+	hit.draw_start = (HEIGHT / 2) - (hit.line_height / 2);
 	
-	print_vect(dist, "dist to next col/row");
-
-	printf("perpdist = %d\n", 1);
-	usleep(200);
-	return (dist);
+	return (hit);
 }
-//
-// hit.side
-// 	0: facing down	v
-// 	1: facing up	^
-// 	2: facing right	>
-// 	3: facing left	<
