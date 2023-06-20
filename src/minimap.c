@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:33:26 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/19 10:16:19 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/19 19:32:58 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,27 @@ void	draw_line_minimap(t_data *d, t_vect s, t_vect e, int color)
 void	draw_minimap(t_data *d)
 {
 	int	side;
-	int	margin;
 	int	x;
 	int	y;
 	int	yoff;
 
-	margin = 0;
-	side = (d->minimap.w - (d->house.w - 1) * margin) / d->house.w;
+	side = d->minimap.w / d->house.w;
 	if (d->house.w < d->house.h)
-		side = (d->minimap.h - (d->house.h - 1) * margin) / d->house.h;
-	yoff = d->minimap.h - (d->house.h * (side + margin) - margin);
-	paint_canvas(&d->minimap, 0xffffffff);
+		side = (d->minimap.h - (d->house.h - 1)) / d->house.h;
+	yoff = d->minimap.h - (d->house.h * (side));
+	paint_canvas(&d->minimap, 0x00ffffff);
 	y = -1;
 	while (++y < d->house.h)
 	{
 		x = -1;
 		while (++x < d->house.w)
-		{
 			if (d->house.map[y][x] == '1')
 				draw_rectangle(&d->minimap,
-					(t_vect_i){.x = x * (side + margin), .y = yoff + y * (side + margin)}, 
+					(t_vect_i){.x = x * side, .y = yoff + y * side},
 					(t_vect_i){.x = side, .y = side}, 0x00ff0000);
-			else
-				draw_rectangle(&d->minimap,
-					(t_vect_i){.x = x * (side + margin), .y = yoff + y * (side + margin)}, 
-					(t_vect_i){.x = side, .y = side}, 0x00ffffff);
-		}
 	}
-	draw_rectangle(&d->minimap, (t_vect_i){.x=d->cam.pos.x*side - 1, .y=d->cam.pos.y*side - 1}, (t_vect_i){.x=3, .y=3}, 0x00fcba03);
+	draw_rectangle(&d->minimap,
+		(t_vect_i){.x = d->cam.pos.x * side - 2, .y = d->cam.pos.y * side - 2},
+		(t_vect_i){.x = 5, .y = 5}, 0x000000ff);
 	mlx_put_image_to_window(d->mlx, d->win, d->minimap.img, 0, 0);
 }

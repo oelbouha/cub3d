@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_line.c                                        :+:      :+:    :+:   */
+/*   draw_line_ed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 10:06:02 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/19 10:54:28 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/19 15:48:40 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,29 @@
 
 void	draw_line(t_canvas *c, t_vect_i s, t_vect_i e, int color)
 {
-	int	x0 = s.x;
-	int	y0 = s.y;
-	int	x1 = e.x;
-	int	y1 = e.y;
-    int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-    int dy = abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-    int err = (dx > dy ? dx : -dy) / 2;
+	t_vect_i	dlt;
+	t_vect_i	step;
+	int			err;
+	int			e2;
 
-    while (x0 != x1 || y0 != y1)
+	dlt.x = abs(e.x - s.x);
+	dlt.y = abs(e.y - s.y);
+	step.x = 2 * (s.x < e.x) - 1;
+	step.y = 2 * (s.y < e.y) - 1;
+	err = (dlt.x > dlt.y) * dlt.x / 2 - (dlt.x <= dlt.y) * dlt.y / 2;
+	while (s.x != e.x || s.y != e.y)
 	{
-		paint_pxl(c, x0, y0, color);
-        int e2 = err;
-        if (e2 > -dx) { err -= dy; x0 += sx; }
-        if (e2 <  dy) { err += dx; y0 += sy; }
-    }
+		paint_pxl(c, s.x, s.y, color);
+		e2 = err;
+		if (e2 > -dlt.x)
+		{
+			err -= dlt.y;
+			s.x += step.x;
+		}
+		if (e2 < dlt.y)
+		{
+			err += dlt.x;
+			s.y += step.y;
+		}
+	}
 }
