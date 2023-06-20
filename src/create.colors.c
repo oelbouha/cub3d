@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:54:10 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/20 11:50:41 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:21:09 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_number(char *str)
 
 int	valid_number(char **arr)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (arr[++i])
@@ -50,14 +50,14 @@ int	create_colors(char *line, t_house *house)
 
 	arr = NULL;
 	trimed = ft_strtrim(line, " ");
-	color = skip_spaces(&trimed[2]);
+	color = skip_spaces(&trimed[1]);
 	arr = ft_split(color, ',');
 	if (arr == NULL)
-		return (free(trimed), 1);
+		return (free(trimed), free(line), 1);
 	if (!valid_number(arr))
 	{
 		print_error_msg("not a valid number");
-		return (free(trimed), free_arr(arr), 1);
+		return (free(trimed), free_arr(arr), free(line), 1);
 	}
 	ret = ft_strnmatch(line, "F:C", ':', 1);
 	if (ret == 1)

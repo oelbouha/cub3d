@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:15:59 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 15:00:46 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/20 23:31:17 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_a_color(char *str)
 	return (0);
 }
 
-int check_filenmae(char *map_path)
+int check_extension(char *map_path)
 {
 	char *ptr;
 
@@ -68,7 +68,7 @@ t_house	parse_map(char *file, t_data data)
 	lst = NULL;
 	ft_bzero(&house, sizeof(t_house));
 	fd = open(file, O_RDONLY);
-	if (fd < 0 || check_filenmae(file))
+	if (fd < 0 || check_extension(file))
 		return (house);
 	while (1)
 	{
@@ -80,8 +80,6 @@ t_house	parse_map(char *file, t_data data)
 			return (free(line), ft_lstclear(&lst, free), house);
 		free(line);
 	}
-	if (analyze_map(lst))
-		return (ft_lstclear(&lst, free), house);
-	house.map = get_rectangle_map(lst);
+	house.map = analyze_map(lst);
 	return (ft_lstclear(&lst, free), house);
 }

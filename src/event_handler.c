@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 09:52:13 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 15:40:31 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/20 21:40:34 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	rotate(t_camera *cam, int dir)
 	static t_vect	rot;
 
 	if (rot.x == 0 && rot.y == 0)
-		rot = (t_vect){.x = cos(M_PI / 180.0), .y = sin(M_PI / 180.0)};
+		rot = (t_vect){.x = cos(M_PI / 80.0), .y = sin(M_PI / 80.0)};
 	cam->dir.x = cam->dir.x * rot.x - cam->dir.y * dir * rot.y;
 	cam->dir.y = cam->dir.x * dir * rot.y + cam->dir.y * rot.x;
 	cam->plane.x = cam->plane.x * rot.x - cam->plane.y * dir * rot.y;
