@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/19 10:09:15 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/20 12:29:14 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ enum e_side
 	LEFT
 };
 
+enum e_move
+{
+	FORWARD,
+	SIDEWAY
+};
+
 /**************************************/
 /***** 			Types		***********/
 /**************************************/
@@ -108,6 +114,7 @@ struct s_camera
 	t_vect	pos;
 	t_vect	dir;
 	t_vect	plane;
+	t_vect	sideway;
 };
 
 struct	s_house
@@ -115,12 +122,12 @@ struct	s_house
 	char		**map;
 	int			w;
 	int			h;
+	int			ceiling;
+	int			floor;
 	t_canvas	north;
 	t_canvas	south;
 	t_canvas	west;
 	t_canvas	east;
-	int			ceiling;
-	int			floor;
 };
 
 struct s_data
@@ -135,27 +142,30 @@ struct s_data
 
 typedef struct s_hit
 {
-	int		done;
 	int		side;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
 	double	wall_dist;
 	double	wall_pos;
-
 	t_vect	dist;
 }	t_hit;
 
+typedef struct	s_ray
+{
+	t_vect_i	step;
+	t_vect		dist;
+	t_vect		yl;
+	t_vect		xl;
+}	t_ray;
 
 /**************************************/
 /***** 			Prototypes		*******/
 /**************************************/
 
-int	is_map_enclosed(char **map);
+int	is_map_enclosed(t_house *h);
 
-
-
-t_data	*init(void);
+t_data	*init(char *map_path);
 void	destroy(t_data *d);
 
 int		init_minimap(t_data *d);
@@ -175,6 +185,16 @@ void	paint_canvas(t_canvas *c, int color);
 void	draw_line(t_canvas *c, t_vect_i s, t_vect_i e, int color);
 void	draw_line_minimap(t_data *d, t_vect start, t_vect end, int color);
 
+t_house	parse_map(char *file, t_data data);
+void	print_error_msg(char *msg);
+char	**get_rectangle_map(t_list *lst);
+char	*skip_spaces(char *str);
+int		rgb(int r, int g, int b);
+int		create_colors(char *line, t_house *house);
+int		analyze_textures(t_house *house, t_data *data);
+int		analyze_map(t_list *lst);
+int		open_textures(char *line, t_house *house, t_data *data);
+void	destroy_textures(t_house *house, t_data *data);
 
 /**************************************/
 /***** 			Debug utils		*******/

@@ -6,7 +6,7 @@
 #    By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/27 20:14:07 by ysalmi            #+#    #+#              #
-#    Updated: 2023/06/19 15:49:40 by ysalmi           ###   ########.fr        #
+#    Updated: 2023/06/20 13:06:05 by ysalmi           ###   ########.fr        #
 #    Updated: 2023/06/07 21:41:11 by oelbouha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -26,13 +26,22 @@ MAP_PARSER := map_parser/parser.c \
 
 SRC := index.c \
 	init.c \
+	analyse_map.c \
 	minimap.c \
 	scene.c \
-	rotation.c \
+	event_handler.c \
 	raycaster.c \
 	canvas_utils.c \
 	draw_line.c \
-	debug_utils.c
+	debug_utils.c \
+	parser.c \
+	print.error.msg.c \
+	destroy.textures.c \
+	utils.c \
+	create.colors.c \
+	open.textures.c \
+	analyze.map.c \
+	get.rectangle.map.c
 
 OBJ := $(addprefix obj/,$(SRC:.c=.o))
 
@@ -42,9 +51,9 @@ R :=\x1b[31;01m
 B :=\x1b[43;01m
 O :=\x1b[33;01m
 
-all: libmlx libft $(NAME)
+all: libmlx libft gnline $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT) $(GNLINE)
 	@$(CC) $(CFLAGS) $(MLXFLAGS) $I -o $@ $^
 	@echo "\n$O$(NAME)$N $Gcreated$N"
 
@@ -53,22 +62,29 @@ $(LIBFT): libft
 libft:
 	@$(MAKE) -s -C libft
 
+$(GNLINE): gnline
+
+gnline:
+	@$(MAKE) -C gnline
+
 libmlx:
 	@$(MAKE) -s -C $(MLX_DIR)
 
-obj/%.o: src/%.c
+obj/%.o: src/%.c inc/cub3d.h
 	@mkdir -p $(shell dirname $@)
 	@echo "Compiling $B$<$N..."
 	@$(CC) $(CFLAGS) $I -c $< -o $@
 
 clean:
-	@make -C libft clean
+	@$(MAKE) -C gnline clean
+	@$(MAKE) -C libft clean
 	@echo "$RDeleting $(NAME) object files...$N"
 	@rm -rf obj
 	@echo "$RDone.$N\n"
 
 fclean:
-	@make -C libft fclean
+	@$(MAKE) -C gnline fclean
+	@$(MAKE) -C libft fclean
 	@echo "$RDeleting $(NAME) object files...$N"
 	@rm -rf obj/
 	@echo "$RDone.$N\n"
@@ -83,5 +99,5 @@ re: fclean all
 clear:
 	clear
 
-.PHONY: all clean fclean re clear libft
+.PHONY: all clean fclean re clear libft gnline
 

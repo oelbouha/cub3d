@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 19:01:28 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/19 15:20:45 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/20 12:28:40 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  *  - get player position
  */
 
-int	is_map_enclosed(char **map)
+int	is_map_enclosed(t_house *h)
 {
 	int	i;
 	int	j;

@@ -1,7 +1,7 @@
-SO /Users/oelbouha/Desktop/cub3d/textures/file1050x700.xpm
-NO /Users/oelbouha/Desktop/cub3d/textures/file1050x700.xpm
-WE /Users/oelbouha/Desktop/cub3d/textures/file1050x700.xpm
-EA /Users/oelbouha/Desktop/cub3d/textures/file1050x700.xpm
+SO assets/south.xpm
+NO assets/north.xpm
+WE assets/west.xpm
+EA assets/east.xpm
 
 F 220,100,0
 C 225,30,0
