@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 09:52:13 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 13:01:46 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:40:31 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	rotate(t_camera *cam, int dir)
 	static t_vect	rot;
 
 	if (rot.x == 0 && rot.y == 0)
-		rot = (t_vect){.x = cos(M_PI / 90.0), .y = sin(M_PI / 90.0)};
+		rot = (t_vect){.x = cos(M_PI / 180.0), .y = sin(M_PI / 180.0)};
 	cam->dir.x = cam->dir.x * rot.x - cam->dir.y * dir * rot.y;
 	cam->dir.y = cam->dir.x * dir * rot.y + cam->dir.y * rot.x;
 	cam->plane.x = cam->plane.x * rot.x - cam->plane.y * dir * rot.y;
@@ -26,23 +26,33 @@ void	rotate(t_camera *cam, int dir)
 	cam->sideway.y = cam->sideway.x * dir * rot.y + cam->sideway.y * rot.x;
 }
 
-void	move(t_camera *cam, int to, int dir)
+void	move(t_camera *cam, int to, int dir, char **map)
 {
+	t_vect	m;
+	t_vect	c;
 	float	k;
 
 	k = 0.08;
-	print_vect(cam->sideway, "sideway vect");
+		//m = (t_vect){.x = dir * k * cam->dir.x, .y = dir * k * cam->dir.x}
 	if (to == FORWARD)
 	{
-		cam->pos.x += dir * k * cam->dir.x;
-		cam->pos.y += dir * k * cam->dir.y;
+		m.x = dir * k * cam->dir.x;
+		m.y = dir * k * cam->dir.y;
 	}
 	else
 	{
-		cam->pos.x += dir * k * cam->sideway.x;
-		cam->pos.y += dir * k * cam->sideway.y;
+		m.x = dir * k * cam->sideway.x;
+		m.y = dir * k * cam->sideway.y;
 	}
-	print_vect(cam->pos, "new_pos");
+	k = 0.04;
+	c = (t_vect){.x = cam->pos.x + m.x, .y = cam->pos.y + m.y};
+	if (map[(int)(c.y + k)][(int)(c.x + k)] == '1')
+		return ;
+	if (map[(int)(c.y - k)][(int)(c.x - k)] == '1')
+		return ;
+
+	cam->pos.x += m.x;
+	cam->pos.y += m.y;
 }
 
 int	keydown_handler(int key, t_data *d)
@@ -55,13 +65,13 @@ int	keydown_handler(int key, t_data *d)
 	else if (key == K_RIGHT)
 		rotate(&d->cam, 1);
 	else if (key == K_W)
-		move(&d->cam, FORWARD, 1);
+		move(&d->cam, FORWARD, 1, d->house.map);
 	else if (key == K_S)
-		move(&d->cam, FORWARD, -1);
+		move(&d->cam, FORWARD, -1, d->house.map);
 	else if (key == K_A)
-		move(&d->cam, SIDEWAY, 1);
+		move(&d->cam, SIDEWAY, -1, d->house.map);
 	else if (key == K_D)
-		move(&d->cam, SIDEWAY, -1);
+		move(&d->cam, SIDEWAY, 1, d->house.map);
 	else if (key == K_ESC)
 		return (destroy(d), exit(0), 1);
 	else
