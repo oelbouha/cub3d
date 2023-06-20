@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:15:59 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 11:51:51 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:00:46 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ int	is_a_color(char *str)
 {
 	if (ft_strchr(str, 'F') || ft_strchr(str, 'C'))
 		return (1);
+	return (0);
+}
+
+int check_filenmae(char *map_path)
+{
+	char *ptr;
+
+	ptr = ft_strchr(map_path, '.');
+	if (ptr == NULL || ft_strcmp(ptr, ".cub"))
+		return (print_error_msg("invalid filename"), 1);
 	return (0);
 }
 
@@ -58,7 +68,7 @@ t_house	parse_map(char *file, t_data data)
 	lst = NULL;
 	ft_bzero(&house, sizeof(t_house));
 	fd = open(file, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0 || check_filenmae(file))
 		return (house);
 	while (1)
 	{
