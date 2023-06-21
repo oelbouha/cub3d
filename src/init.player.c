@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:24:52 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 11:16:31 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 17:54:02 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,27 @@ void	setup_east(t_data *d)
 
 void	init_player(t_data *d)
 {
-	char	**map;
 	int		i;
 	int		j;
 
-	map = d->house.map;
 	i = -1;
-	while (map[++i])
+	while (d->house.map[++i])
 	{
 		j = -1;
-		while (map[i][++j])
+		while (d->house.map[i][++j])
 		{
-			if (ft_strchr("NSWE", map[i][j]))
+			if (ft_strchr("NSWE", d->house.map[i][j]))
 			{
 				d->cam.pos = (t_vect){.x = j + 0.5, .y = i + 0.5};
-				if (map[i][j] == 'N')
+				if (d->house.map[i][j] == 'N')
 					setup_north(d);
-				else if (map[i][j] == 'S')
+				else if (d->house.map[i][j] == 'S')
 					setup_south(d);
-				else if (map[i][j] == 'E')
+				else if (d->house.map[i][j] == 'E')
 					setup_east(d);
-				else if (map[i][j] == 'W')
+				else if (d->house.map[i][j] == 'W')
 					setup_west(d);
-				map[i][j] = '0';
+				d->house.map[i][j] = '0';
 			}
 		}
 	}	

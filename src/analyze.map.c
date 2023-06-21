@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:57:29 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 10:39:58 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:46:48 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,24 @@ int	is_map_enclosed(t_house *h)
 					return (0);
 			}
 		}
-	printf("return:%s:\n", h->map[j]);
 	}
 	return (h->map != NULL);
 }
 
-int	cant_be_in_map(char *str)
+int	cant_be_in_map(t_list *lst)
 {
-	if (ft_issubset(" ", str) || ft_strchr(str, '0') || ft_strchr(str, '1')
-		|| ft_strchr(str, ' '))
-		return (0);
+	t_list	*cur;
+	char	*str;
+
+	cur = lst;
+	while (cur)
+	{
+		str = cur->content;
+		if (ft_issubset(" ", str) || ft_strchr(str, '0') || ft_strchr(str, '1')
+			|| ft_strchr(str, ' '))
+			return (0);
+		cur = cur->next;
+	}
 	return (1);
 }
 
@@ -56,16 +64,14 @@ int	check_map_characters(char **map)
 	int		j;
 	int		check;
 
-	check = 0;
 	i = -1;
+	check = 0;
 	while (map[++i])
 	{
 		j = -1;
-		if (ft_issubset(" ", map[i]))
-			return (1);
 		while (map[i][++j])
 		{
-			if (!ft_strchr(" 01NSWE", map[i][j]))
+			if (!ft_strchr(" 01NSWE", map[i][j]) || ft_issubset(" ", map[i]))
 				return (1);
 			if (ft_strchr("NSWE", map[i][j]))
 			{
@@ -82,26 +88,24 @@ int	check_map_characters(char **map)
 
 char	**analyze_map(t_list *lst, t_house *h)
 {
-	t_list	*cur;
 	char	**map;
 
 	if (lst == NULL)
-		return (NULL);
-	if (check_textures(h))
-		return (print_error_msg("there is no textures"), NULL);
-	if (h->ceiling == -1|| h->floor == -1)
-		return (print_error_msg("there is no colors"), NULL);
-	cur = lst;
-	while (cur)
-	{
-		if (cant_be_in_map(cur->content))
-			return (print_error_msg("invalid map content"), NULL);
-		cur = cur->next;
-	}
+		return (print_error_msg("empty file"), NULL);
+	else if (check_textures(h))
+		return (print_error_msg("invalid map"), NULL);
+	else if (h->ceiling == -1 || h->floor == -1)
+		return (print_error_msg("invalid map"), NULL);
+	else if (cant_be_in_map(lst))
+		return (print_error_msg("invalid map content"), NULL);
 	map = get_rectangle_map(lst);
 	if (map == NULL)
 		return (NULL);
 	if (check_map_characters(map))
 		return (print_error_msg("invalid map characters"), free_arr(map), NULL);
+	h->w = ft_strlen(map[0]);
+	h->h = 0;
+	while (map[h->h])
+		h->h++;
 	return (map);
 }

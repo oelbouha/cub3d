@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:54:10 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 12:23:49 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 17:21:43 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,29 @@ int	arr_len(char **arr)
 	return (i);
 }
 
-int	is_number(char *str)
+int	check_color(char *str)
 {
-	while (*str)
+	int	i;
+
+	if (*str == ',' || str[ft_strlen(str) - 1] == ',')
+		return (1);
+	i = -1;
+	while (str[++i])
 	{
-		if (!ft_isdigit(*str))
-			return (0);
-		str++;
+		if (str[i] == ',' && str[i + 1] == ',')
+			return (1);
 	}
-	return (1);
+	return (0);
 }
 
-int	valid_number(char **arr)
+int	valid_number(char **arr, char *line)
 {
 	char	*str;
 	int		i;
 	int		j;
 
+	if (arr_len(arr) != 3 || check_color(line))
+		return (0);
 	i = -1;
 	while (arr[++i])
 	{
@@ -60,7 +66,7 @@ int	valid_number(char **arr)
 	return (1);
 }
 
-int	create_colors(char *line, t_house *house)
+int	create_colors(char *line, t_house *h)
 {
 	char	**arr;
 	int		ret;
@@ -73,15 +79,15 @@ int	create_colors(char *line, t_house *house)
 	arr = ft_split(color, ',');
 	if (arr == NULL)
 		return (free(trimed), free(line), 1);
-	if (arr_len(arr) != 3 || !valid_number(arr))
+	if (!valid_number(arr, color) || (h->floor != -1 && h->ceiling != -1))
 	{
 		print_error_msg("not a valid number");
 		return (free(trimed), free_arr(arr), free(line), 1);
 	}
-	ret = ft_strnmatch(line, "F:C", ':', 1);
+	ret = ft_strnmatch(trimed, "F:C", ':', 1);
 	if (ret == 1)
-		house->floor = rgb(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2]));
+		h->floor = rgb(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2]));
 	else if (ret == 2)
-		house->ceiling = rgb(ft_atoi(*arr), ft_atoi(arr[1]), ft_atoi(arr[2]));
+		h->ceiling = rgb(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2]));
 	return (free_arr(arr), free(line), free(trimed), 0);
 }

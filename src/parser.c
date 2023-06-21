@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:15:59 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/21 10:44:05 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:49:58 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,6 @@ int	is_a_color(char *str)
 	if (ft_strchr(str, 'F') || ft_strchr(str, 'C'))
 		return (1);
 	return (0);
-}
-
-int check_extension(char *map_path)
-{
-	char *ptr;
-
-	ptr = ft_strchr(map_path, '.');
-	if (ptr == NULL || ft_strcmp(ptr, ".cub"))
-		return (print_error_msg("invalid filename"), 1);
-	return (0);
-}
-
-int	map_is_empty(t_list *lst)
-{
-	t_list	*cur;
-	int		i;
-	char	*str;
-
-	cur = lst;
-	while (cur)
-	{
-		i = -1;
-		str = cur->content;
-		while (str[++i])
-		{
-			if (ft_strchr(" 01NSWE", str[i]))
-				return (0);
-		}
-		cur = cur->next;	
-	}
-	return (1);
 }
 
 int	check_line(t_house *house, t_data *data, t_list **lst, char *trimed)
@@ -92,7 +61,7 @@ t_house	parse_map(char *file, t_data data)
 	house.floor = -1;
 	fd = open(file, O_RDONLY);
 	if (fd < 0 || check_extension(file))
-		return (perror(file), house);
+		return (ft_putstr_fd("cub3d: error\n", 2), close(fd), house);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -100,9 +69,9 @@ t_house	parse_map(char *file, t_data data)
 			break ;
 		trimed = ft_strtrim(line, "\n");
 		if (check_line(&house, &data, &lst, trimed))
-			return (free(line), ft_lstclear(&lst, free), house);
+			return (free(line), ft_lstclear(&lst, free), close(fd), house);
 		free(line);
 	}
 	house.map = analyze_map(lst, &house);
-	return (ft_lstclear(&lst, free), house);
+	return (ft_lstclear(&lst, free), close(fd), house);
 }

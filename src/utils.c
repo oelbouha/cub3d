@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:03:06 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 10:38:46 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:54:47 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,33 @@ char	*skip_spaces(char *str)
 	return (&str[i]);
 }
 
-void	print_arr(char **arr)
+int	check_extension(char *map_path)
 {
-	if (!arr)
-		return ;
-	for(int i = 0; arr[i]; i++)
-		printf("arr :%s:\n", arr[i]);
+	char	*ptr;
+
+	ptr = ft_strchr(map_path, '.');
+	if (ptr == NULL || ft_strcmp(ptr, ".cub"))
+		return (1);
+	return (0);
+}
+
+int	map_is_empty(t_list *lst)
+{
+	t_list	*cur;
+	int		i;
+	char	*str;
+
+	cur = lst;
+	while (cur)
+	{
+		i = -1;
+		str = cur->content;
+		while (str[++i])
+		{
+			if (ft_strchr("01NSWE", str[i]))
+				return (0);
+		}
+		cur = cur->next;
+	}
+	return (1);
 }

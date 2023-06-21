@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/21 11:05:44 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 17:55:31 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 int	init_house(t_data *d, char *map_path)
 {
-	d->house = parse_map(map_path , *d);
+	d->house = parse_map(map_path, *d);
 	if (d->house.map == NULL)
 		return (1);
 	if (!is_map_enclosed(&d->house))
 		return (ft_putendl_fd("Map is not surounded by walls", 2), 1);
-	d->house.w = ft_strlen(d->house.map[0]);
-	d->house.h = 0;
-	while (d->house.map[d->house.h])
-		d->house.h++;
 	init_player(d);
 	return (0);
 }
@@ -58,6 +54,6 @@ void	destroy(t_data *d)
 		mlx_destroy_image(d->mlx, d->view.img);
 	if (d->minimap.img)
 		mlx_destroy_image(d->mlx, d->minimap.img);
-	destroy_textures(&d->house, d); 
+	destroy_textures(&d->house, d);
 	free(d->mlx);
 }
