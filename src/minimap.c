@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:33:26 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/19 19:32:58 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 11:08:13 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,23 @@ void	draw_minimap(t_data *d)
 	if (d->house.w < d->house.h)
 		side = (d->minimap.h - (d->house.h - 1)) / d->house.h;
 	yoff = d->minimap.h - (d->house.h * (side));
-	paint_canvas(&d->minimap, 0x00ffffff);
+	yoff = 0;
+	paint_canvas(&d->minimap, 0xffffffff);
 	y = -1;
 	while (++y < d->house.h)
 	{
 		x = -1;
 		while (++x < d->house.w)
+		{
 			if (d->house.map[y][x] == '1')
 				draw_rectangle(&d->minimap,
 					(t_vect_i){.x = x * side, .y = yoff + y * side},
 					(t_vect_i){.x = side, .y = side}, 0x00ff0000);
+			else if (d->house.map[y][x] == '0')
+				draw_rectangle(&d->minimap,
+					(t_vect_i){.x = x * side, .y = yoff + y * side},
+					(t_vect_i){.x = side, .y = side}, 0x00ffffff);
+		}
 	}
 	draw_rectangle(&d->minimap,
 		(t_vect_i){.x = d->cam.pos.x * side - 2, .y = d->cam.pos.y * side - 2},

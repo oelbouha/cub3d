@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 12:31:17 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 11:05:44 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int	init_house(t_data *d, char *map_path)
 		return (1);
 	if (!is_map_enclosed(&d->house))
 		return (ft_putendl_fd("Map is not surounded by walls", 2), 1);
-	//
+	d->house.w = ft_strlen(d->house.map[0]);
+	d->house.h = 0;
+	while (d->house.map[d->house.h])
+		d->house.h++;
+	init_player(d);
 	return (0);
 }
 
@@ -43,10 +47,6 @@ t_data	*init(char *map_path)
 		return (destroy(d), NULL);
 	if (init_minimap(d) || init_house(d, map_path))
 		return (destroy(d), NULL);
-	d->cam.pos = (t_vect){.x = 1.5, .y = 1.5};
-	d->cam.dir = (t_vect){.x = 1, .y = 0};
-	d->cam.plane = (t_vect){.x = 0, .y = 0.66};
-	d->cam.sideway = (t_vect){.x = 0, .y = 1.0};
 	return (d);
 }
 

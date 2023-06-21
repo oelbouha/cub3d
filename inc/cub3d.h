@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 12:29:14 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:53:32 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@
 # define TITLE "Cub3D"
 # define WIDTH 1680
 # define HEIGHT 1080
+# define NORTH 1
+# define SOUTH 2
+# define WEST 3
+# define EAST 4
+
 
 
 /**************************************/
@@ -167,6 +172,7 @@ int	is_map_enclosed(t_house *h);
 
 t_data	*init(char *map_path);
 void	destroy(t_data *d);
+void	init_player(t_data *d);
 
 int		init_minimap(t_data *d);
 void	draw_minimap(t_data *d);
@@ -186,14 +192,15 @@ void	draw_line(t_canvas *c, t_vect_i s, t_vect_i e, int color);
 void	draw_line_minimap(t_data *d, t_vect start, t_vect end, int color);
 
 t_house	parse_map(char *file, t_data data);
-void	print_error_msg(char *msg);
 char	**get_rectangle_map(t_list *lst);
 char	*skip_spaces(char *str);
 int		rgb(int r, int g, int b);
 int		create_colors(char *line, t_house *house);
 int		analyze_textures(t_house *house, t_data *data);
-int		analyze_map(t_list *lst);
+char	**analyze_map(t_list *lst, t_house *h);
 int		open_textures(char *line, t_house *house, t_data *data);
+int		check_textures(t_house *h);
+void	print_error_msg(char *msg);
 void	destroy_textures(t_house *house, t_data *data);
 
 /**************************************/
@@ -203,4 +210,6 @@ void	destroy_textures(t_house *house, t_data *data);
 void	print_vect(t_vect v, char *name);
 void	print_vect_i(t_vect_i v, char *name);
 
+
+void	print_arr(char **arr);
 #endif

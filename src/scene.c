@@ -6,7 +6,7 @@
 /*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 08:07:18 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 13:01:02 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 11:17:08 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	get_color(t_data *d, t_hit hit, int posy)
 {
 	t_canvas	c;
 
-	if (hit.side == TOP)
+	if (hit.side == BOTTOM)
 		c = d->house.north;
-	else if (hit.side == BOTTOM)
+	else if (hit.side == TOP)
 		c = d->house.south;
-	else if (hit.side == RIGHT)
+	else if (hit.side == LEFT)
 		c = d->house.east;
 	else
 		c = d->house.west;
@@ -58,7 +58,7 @@ void	render_scene(t_data *d)
 		ray = (t_vect){.x = d->cam.dir.x + px * d->cam.plane.x,
 			.y = d->cam.dir.y + px * d->cam.plane.y};
 		hit = raycaster(d, d->cam.pos, ray);
-		//draw_line_minimap(d, d->cam.pos, hit.dist, 0x00f0f000);
+		draw_line_minimap(d, d->cam.pos, hit.dist, 0x00f0f000);
 		y = -1;
 		while (++y < HEIGHT)
 		{

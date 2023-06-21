@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:54:40 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/20 12:56:52 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/20 23:28:09 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	open_south_and_north(int ret, t_house *house, char *filename, void *mlx)
 	t_canvas	*c;
 
 	c = NULL;
-	if (ret == 1)
+	if (ret == NORTH)
 		c = &house->north;
-	else if (ret == 2)
+	else if (ret == SOUTH)
 		c = &house->south;
 	c->img = mlx_xpm_file_to_image(mlx, filename, &c->w, &c->h);
 	if (c->img == NULL)
@@ -33,9 +33,9 @@ int	open_east_and_west(int ret, t_house *house, char *filename, void *mlx)
 	t_canvas	*c;
 
 	c = NULL;
-	if (ret == 3)
+	if (ret == WEST)
 		c = &house->west;
-	else if (ret == 4)
+	else if (ret == EAST)
 		c = &house->east;
 	c->img = mlx_xpm_file_to_image(mlx, filename, &c->w, &c->h);
 	if (c->img == NULL)
@@ -56,9 +56,9 @@ int	open_textures(char *line, t_house *house, t_data *data)
 	n = ft_strnmatch(line, "NO:SO:WE:EA", ':', 2);
 	filename = skip_spaces(&trimed[2]);
 	free(line);
-	if (n == 1 || n == 2)
+	if (n == NORTH || n == SOUTH)
 		ret = open_south_and_north(n, house, filename, data->mlx);
-	else if (n == 3 || n == 4)
+	else if (n == WEST || n == EAST)
 		ret = open_east_and_west(n, house, filename, data->mlx);
 	return (free(trimed), ret);
 }
