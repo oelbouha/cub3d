@@ -6,11 +6,18 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 13:00:55 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:15:01 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	close_window(t_data *d)
+{
+	destroy(d);
+	exit(0);
+	return (0);
+}
 
 int	main(int c, char **v)
 {
@@ -26,6 +33,7 @@ int	main(int c, char **v)
 	render_scene(d);
 	//mlx_put_image_to_window(d->mlx, d->win, d->minimap.img, 0, 0);
 	mlx_key_hook(d->win, keydown_handler, d);
+	mlx_hook(d->win, ON_DESTROY, 0, close_window, d);
 	mlx_loop(d->mlx);
 	return (0);
 }

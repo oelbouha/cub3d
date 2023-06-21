@@ -6,12 +6,12 @@
 #    By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/27 20:14:07 by ysalmi            #+#    #+#              #
-#    Updated: 2023/06/20 13:06:05 by ysalmi           ###   ########.fr        #
+#    Updated: 2023/06/21 09:08:09 by ysalmi           ###   ########.fr        #
 #    Updated: 2023/06/07 21:41:11 by oelbouha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := cub3d
+NAME := cub3D
 CC := cc
 CFLAGS := -Wall -Werror -Wextra
 MLX_DIR := $(shell pwd)/minilibx
