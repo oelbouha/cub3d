@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   index.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/21 11:03:02 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 19:19:22 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	close_window(t_data *d)
 int	main(int c, char **v)
 {
 	t_data	*d;
-	
+
 	if (c != 2)
 		return (1);
 	d = init(v[1]);

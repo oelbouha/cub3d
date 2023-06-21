@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 09:52:13 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/21 11:10:53 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/21 19:32:25 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	rotate(t_camera *cam, int dir)
 {
 	static t_vect	rot;
+	double			angle;
 
+	angle = M_PI / 40.0;
 	if (rot.x == 0 && rot.y == 0)
-		rot = (t_vect){.x = cos(M_PI / 80.0), .y = sin(M_PI / 80.0)};
+		rot = (t_vect){.x = cos(angle), .y = sin(angle)};
 	cam->dir.x = cam->dir.x * rot.x - cam->dir.y * dir * rot.y;
 	cam->dir.y = cam->dir.x * dir * rot.y + cam->dir.y * rot.x;
 	cam->plane.x = cam->plane.x * rot.x - cam->plane.y * dir * rot.y;
@@ -32,8 +34,7 @@ void	move(t_camera *cam, int to, int dir, char **map)
 	t_vect	c;
 	float	k;
 
-	k = 0.08;
-		//m = (t_vect){.x = dir * k * cam->dir.x, .y = dir * k * cam->dir.x}
+	k = 0.1;
 	if (to == FORWARD)
 	{
 		m.x = dir * k * cam->dir.x;
@@ -44,13 +45,12 @@ void	move(t_camera *cam, int to, int dir, char **map)
 		m.x = dir * k * cam->sideway.x;
 		m.y = dir * k * cam->sideway.y;
 	}
-	k = 0.04;
+	k = 0.06;
 	c = (t_vect){.x = cam->pos.x + m.x, .y = cam->pos.y + m.y};
 	if (map[(int)(c.y + k)][(int)(c.x + k)] == '1')
 		return ;
 	if (map[(int)(c.y - k)][(int)(c.x - k)] == '1')
 		return ;
-
 	cam->pos.x += m.x;
 	cam->pos.y += m.y;
 }

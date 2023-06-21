@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get.rectangle.map.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:12:08 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 17:39:40 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:20:01 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void print(t_list *lst)
+void	print(t_list *lst)
 {
-	t_list *cur;
+	t_list	*cur;
 
 	if (lst == NULL)
 		return ;
@@ -49,7 +49,7 @@ char	**convert_lst_to_arr(t_list *lst, int max_len)
 	char	**arr;
 	t_list	*cur;
 	int		i;
-	
+
 	arr = malloc((ft_lstsize(lst) + 1) * sizeof(char *));
 	if (arr == NULL)
 		return (NULL);

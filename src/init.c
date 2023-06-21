@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/21 17:55:31 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:04:54 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	init_minimap(t_data *d)
+{
+	d->minimap.w = 200;
+	d->minimap.h = 200;
+	if (init_canvas(d, &d->minimap))
+		return (1);
+	return (0);
+}
 
 int	init_house(t_data *d, char *map_path)
 {
