@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 23:27:05 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:53:32 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,8 +197,9 @@ char	*skip_spaces(char *str);
 int		rgb(int r, int g, int b);
 int		create_colors(char *line, t_house *house);
 int		analyze_textures(t_house *house, t_data *data);
-char	**analyze_map(t_list *lst);
+char	**analyze_map(t_list *lst, t_house *h);
 int		open_textures(char *line, t_house *house, t_data *data);
+int		check_textures(t_house *h);
 void	print_error_msg(char *msg);
 void	destroy_textures(t_house *house, t_data *data);
 
@@ -209,4 +210,6 @@ void	destroy_textures(t_house *house, t_data *data);
 void	print_vect(t_vect v, char *name);
 void	print_vect_i(t_vect_i v, char *name);
 
+
+void	print_arr(char **arr);
 #endif

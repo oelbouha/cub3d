@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:54:10 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/20 23:21:09 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:38:14 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 int	rgb(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
+}
+
+int	arr_len(char **arr)
+{
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+		;
+	return (i);
 }
 
 int	is_number(char *str)
@@ -28,10 +38,18 @@ int	is_number(char *str)
 	return (1);
 }
 
-int	valid_number(char **arr)
+int	valid_number(char **arr, char *str)
 {
 	int	i;
 
+	i = -1;
+	while (str[++i])
+	{
+		if (*str == ',' || str[ft_strlen(str) - 1] == ',')
+			return (0);
+		if (str[i] == ',' && str[i + 1] == ',')
+			return (0);
+	}
 	i = -1;
 	while (arr[++i])
 	{
@@ -54,7 +72,7 @@ int	create_colors(char *line, t_house *house)
 	arr = ft_split(color, ',');
 	if (arr == NULL)
 		return (free(trimed), free(line), 1);
-	if (!valid_number(arr))
+	if (!valid_number(arr, color) || arr_len(arr) != 3)
 	{
 		print_error_msg("not a valid number");
 		return (free(trimed), free_arr(arr), free(line), 1);

@@ -1,19 +1,16 @@
-
-
-
-
-
-
 SO assets/south.xpm
 NO assets/north.xpm
 WE assets/west.xpm
 EA assets/east.xpm
 
 
-F 0,0,0
-C 0,0,0
+F 183,177,174
+C 135,206,235
+
 1111111111
-1000000011
+
+1111111111
+1000000001
 1000110001
 10000S0001
 1111111111

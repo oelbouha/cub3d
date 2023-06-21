@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:12:08 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/20 22:58:13 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:09:14 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,17 @@ int	get_maxlength(t_list *lst)
 	return (max_length);
 }
 
-char	**get_rectangle_map(t_list *lst)
+char	**convert_lst_to_arr(t_list *lst, int max_len)
 {
-	t_list	*cur;
-	int		max_len;
 	char	**arr;
+	t_list	*cur;
 	int		i;
-
-	max_len = get_maxlength(lst);
+	
 	arr = malloc((ft_lstsize(lst) + 1) * sizeof(char *));
 	if (arr == NULL)
 		return (NULL);
 	i = 0;
 	cur = lst;
-	while (cur && ft_issubset(" ", cur->content))
-		cur = cur->next;
 	while (cur)
 	{
 		arr[i] = ft_calloc(max_len + 1, sizeof(char));
@@ -56,5 +52,22 @@ char	**get_rectangle_map(t_list *lst)
 		i++;
 	}
 	arr[i] = NULL;
+	return (arr);
+}
+
+char	**get_rectangle_map(t_list *lst)
+{
+	t_list	*cur;
+	int		max_len;
+	char	**arr;
+
+	arr = NULL;
+	cur = lst;
+	while (cur && ft_issubset(" ", cur->content))
+		cur = cur->next;
+	if (cur == NULL)
+		return (print_error_msg("empty file"), NULL);
+	max_len = get_maxlength(cur);
+	arr = convert_lst_to_arr(cur, max_len);
 	return (arr);
 }

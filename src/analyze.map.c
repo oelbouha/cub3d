@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:57:29 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/20 23:32:26 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:39:58 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	is_map_enclosed(t_house *h)
 					return (0);
 			}
 		}
+	printf("return:%s:\n", h->map[j]);
 	}
 	return (h->map != NULL);
 }
@@ -60,9 +61,11 @@ int	check_map_characters(char **map)
 	while (map[++i])
 	{
 		j = -1;
+		if (ft_issubset(" ", map[i]))
+			return (1);
 		while (map[i][++j])
 		{
-			if (!ft_strchr("01NSWE", map[i][j]))
+			if (!ft_strchr(" 01NSWE", map[i][j]))
 				return (1);
 			if (ft_strchr("NSWE", map[i][j]))
 			{
@@ -72,27 +75,33 @@ int	check_map_characters(char **map)
 			}
 		}
 	}
+	if (check == 0)
+		return (1);
 	return (0);
 }
 
-char	**analyze_map(t_list *lst)
+char	**analyze_map(t_list *lst, t_house *h)
 {
 	t_list	*cur;
 	char	**map;
 
 	if (lst == NULL)
 		return (NULL);
+	if (check_textures(h))
+		return (print_error_msg("there is no textures"), NULL);
+	if (h->ceiling == -1|| h->floor == -1)
+		return (print_error_msg("there is no colors"), NULL);
 	cur = lst;
 	while (cur)
 	{
 		if (cant_be_in_map(cur->content))
-			return (print_error_msg("invalid map"), NULL);
+			return (print_error_msg("invalid map content"), NULL);
 		cur = cur->next;
 	}
 	map = get_rectangle_map(lst);
 	if (map == NULL)
 		return (NULL);
 	if (check_map_characters(map))
-		return (print_error_msg("invalid map"), free_arr(map), NULL);
+		return (print_error_msg("invalid map characters"), free_arr(map), NULL);
 	return (map);
 }

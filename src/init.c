@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/20 23:34:57 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:54:41 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	init_house(t_data *d, char *map_path)
 		return (1);
 	if (!is_map_enclosed(&d->house))
 		return (ft_putendl_fd("Map is not surounded by walls", 2), 1);
+	printf("here\n");
 	init_player(d);
 	return (0);
 }
