@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/22 13:24:40 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:01:14 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,4 @@ void	destroy_textures(t_house *house, t_data *data);
 void	print_vect(t_vect v, char *name);
 void	print_vect_i(t_vect_i v, char *name);
 
-
-void	print_arr(char **arr);
 #endif
