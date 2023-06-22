@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:57:29 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/22 13:28:20 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:49:30 by ysalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,34 @@ int	check_map_characters(char **map)
 	return (0);
 }
 
+void	trim_empty_lines(t_list **list)
+{
+	t_list	*cur;
+	char	*line;
+
+	while (list && *list)
+	{
+		cur = *list;
+		while (cur->next && cur->next->next)
+			cur = cur->next;
+		if (cur->next == NULL)
+			return ;
+		line = cur->next->content;
+		if (*line == 0 || ft_issubset(" ", line))
+		{
+			ft_lstdelone(cur->next, free);
+			cur->next = NULL;
+		}
+		else
+			return ;
+	}
+}
+
 char	**analyze_map(t_list *lst, t_house *h)
 {
 	char	**map;
 
+	trim_empty_lines(&lst);
 	if (lst == NULL)
 		return (print_error_msg("empty file"), NULL);
 	else if (check_textures(h))

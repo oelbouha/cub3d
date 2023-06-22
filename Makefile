@@ -6,7 +6,7 @@
 #    By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/27 20:14:07 by ysalmi            #+#    #+#              #
-#    Updated: 2023/06/21 19:22:14 by ysalmi           ###   ########.fr        #
+#    Updated: 2023/06/22 14:59:39 by ysalmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME := cub3D
 CC := cc
 CFLAGS := -Wall -Werror -Wextra
 MLX_DIR := $(shell pwd)/minilibx
-# MLXFLAGS := -lmlx -L$(MLX_DIR) -framework OpenGL -framework AppKit
-MLXFLAGS := -lmlx -framework OpenGL -framework AppKit
+MLXFLAGS := -lmlx -L$(MLX_DIR) -framework OpenGL -framework AppKit
+#MLXFLAGS := -lmlx -framework OpenGL -framework AppKit
 I := -I./inc -I./libft/inc -I$(MLX_DIR) -I./gnline
 LIBFT := libft/libft.a
 GNLINE := gnline/gnline.a
