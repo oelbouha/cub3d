@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:15:59 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/21 17:49:58 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:29:16 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_house	parse_map(char *file, t_data data)
 	house.floor = -1;
 	fd = open(file, O_RDONLY);
 	if (fd < 0 || check_extension(file))
-		return (ft_putstr_fd("cub3d: error\n", 2), close(fd), house);
+		return (ft_putstr_fd("error\n", 2), close(fd), house);
 	while (1)
 	{
 		line = get_next_line(fd);

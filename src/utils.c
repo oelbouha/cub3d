@@ -6,11 +6,21 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 23:03:06 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 17:57:55 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:24:24 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	arr_len(char **arr)
+{
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+		;
+	return (i);
+}
 
 char	*skip_spaces(char *str)
 {

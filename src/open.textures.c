@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:54:40 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 17:20:49 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:32:09 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	open_south_and_north(int ret, t_house *house, char *filename, void *mlx)
 	else if (ret == SOUTH)
 		c = &house->south;
 	if (c->img)
-		return (print_error_msg("duplicated img"), 1);
+		return (print_error_msg("duplicated texture"), 1);
 	c->img = mlx_xpm_file_to_image(mlx, filename, &c->w, &c->h);
 	if (c->img == NULL)
 		return (print_error_msg("failed to open textures"), 1);
@@ -40,7 +40,7 @@ int	open_east_and_west(int ret, t_house *house, char *filename, void *mlx)
 	else if (ret == EAST)
 		c = &house->east;
 	if (c->img)
-		return (print_error_msg("duplicated img"), 1);
+		return (print_error_msg("duplicated texture"), 1);
 	c->img = mlx_xpm_file_to_image(mlx, filename, &c->w, &c->h);
 	if (c->img == NULL)
 		return (print_error_msg("failed to open textures"), 1);
@@ -57,6 +57,11 @@ int	open_textures(char *line, t_house *house, t_data *data)
 
 	ret = 0;
 	trimed = ft_strtrim(line, " ");
+	if (trimed[2] != ' ')
+	{
+		print_error_msg("not a valid texture path");
+		return (free(trimed), free(line), 1);
+	}
 	n = ft_strnmatch(trimed, "NO:SO:WE:EA", ':', 2);
 	filename = skip_spaces(&trimed[2]);
 	free(line);

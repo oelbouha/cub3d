@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:00:09 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/21 19:04:54 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/22 13:06:29 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_house(t_data *d, char *map_path)
 	if (d->house.map == NULL)
 		return (1);
 	if (!is_map_enclosed(&d->house))
-		return (ft_putendl_fd("Map is not surounded by walls", 2), 1);
+		return (ft_putendl_fd("error\nMap is not surounded by walls", 2), 1);
 	init_player(d);
 	return (0);
 }

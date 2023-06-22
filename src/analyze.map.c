@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:57:29 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 17:46:48 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:28:20 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ char	**analyze_map(t_list *lst, t_house *h)
 	if (lst == NULL)
 		return (print_error_msg("empty file"), NULL);
 	else if (check_textures(h))
-		return (print_error_msg("invalid map"), NULL);
+		return (print_error_msg("there is no textures in the map"), NULL);
 	else if (h->ceiling == -1 || h->floor == -1)
-		return (print_error_msg("invalid map"), NULL);
+		return (print_error_msg("there is no color in the map"), NULL);
 	else if (cant_be_in_map(lst))
 		return (print_error_msg("invalid map content"), NULL);
 	map = get_rectangle_map(lst);

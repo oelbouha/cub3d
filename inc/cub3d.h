@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:20:20 by ysalmi            #+#    #+#             */
-/*   Updated: 2023/06/21 17:53:42 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:24:40 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int		open_textures(char *line, t_house *house, t_data *data);
 int		check_textures(t_house *h);
 int		map_is_empty(t_list *lst);
 int		check_extension(char *map_path);
+int		arr_len(char **arr);
 void	print_error_msg(char *msg);
 void	destroy_textures(t_house *house, t_data *data);
 

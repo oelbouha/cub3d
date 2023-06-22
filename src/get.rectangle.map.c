@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get.rectangle.map.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysalmi <ysalmi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:12:08 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 19:20:01 by ysalmi           ###   ########.fr       */
+/*   Updated: 2023/06/22 13:25:44 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print(t_list *lst)
-{
-	t_list	*cur;
-
-	if (lst == NULL)
-		return ;
-	cur = lst;
-	while (cur)
-	{
-		printf("cur:%s:\n", cur->content);
-		cur = cur->next;
-	}
-}
 
 int	get_maxlength(t_list *lst)
 {
@@ -82,7 +68,7 @@ char	**get_rectangle_map(t_list *lst)
 	while (cur && ft_issubset(" ", cur->content))
 		cur = cur->next;
 	if (cur == NULL)
-		return (print_error_msg("invalid map"), NULL);
+		return (print_error_msg("there is no map content"), NULL);
 	max_len = get_maxlength(cur);
 	arr = convert_lst_to_arr(cur, max_len);
 	return (arr);

@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 12:54:10 by oelbouha          #+#    #+#             */
-/*   Updated: 2023/06/21 17:21:43 by oelbouha         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:24:19 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 int	rgb(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
-}
-
-int	arr_len(char **arr)
-{
-	int	i;
-
-	i = -1;
-	while (arr[++i])
-		;
-	return (i);
 }
 
 int	check_color(char *str)
@@ -66,28 +56,50 @@ int	valid_number(char **arr, char *line)
 	return (1);
 }
 
+int	convert_number_to_rgb(int n, char **arr, t_house *h)
+{
+	if (n == 1)
+	{
+		if (h->floor != -1)
+		{
+			print_error_msg("floor color is duplicated");
+			return (1);
+		}
+		h->floor = rgb(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2]));
+	}
+	else if (n == 2)
+	{
+		if (h->ceiling != -1)
+		{
+			print_error_msg("ceiling color is duplicated");
+			return (1);
+		}
+		h->ceiling = rgb(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2]));
+	}
+	return (0);
+}
+
 int	create_colors(char *line, t_house *h)
 {
 	char	**arr;
 	int		ret;
+	int		n;
 	char	*trimed;
 	char	*color;
 
+	ret = 0;
 	arr = NULL;
 	trimed = ft_strtrim(line, " ");
 	color = skip_spaces(&trimed[1]);
 	arr = ft_split(color, ',');
 	if (arr == NULL)
 		return (free(trimed), free(line), 1);
-	if (!valid_number(arr, color) || (h->floor != -1 && h->ceiling != -1))
+	if (!valid_number(arr, color))
 	{
-		print_error_msg("not a valid number");
+		print_error_msg("not a valid color");
 		return (free(trimed), free_arr(arr), free(line), 1);
 	}
-	ret = ft_strnmatch(trimed, "F:C", ':', 1);
-	if (ret == 1)
-		h->floor = rgb(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2]));
-	else if (ret == 2)
-		h->ceiling = rgb(ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2]));
-	return (free_arr(arr), free(line), free(trimed), 0);
+	n = ft_strnmatch(trimed, "F:C", ':', 1);
+	ret = convert_number_to_rgb(n, arr, h);
+	return (free_arr(arr), free(line), free(trimed), ret);
 }
