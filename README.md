@@ -15,7 +15,7 @@ To get started with cub3D, follow these steps:<br>
 
 Clone the repository:<br>
 
-git clone https://github.com/your-username/cub3D.git<br>
+git clone https://github.com/oelbouha/cub3D.git<br>
 cd cub3D<br>
 Install dependencies:<br>
 
