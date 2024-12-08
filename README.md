@@ -30,8 +30,6 @@ Run the program:<br> After compilation, you can run the game by providing a .cub
 📝 Map Format
 The game requires a .cub file that defines the textures, colors, and the maze layout. A simple example of a .cub file is as follows:<br>
 
-plaintext<br>
-Copy code
 NO ./textures/north_texture.xpm<br>
 SO ./textures/south_texture.xpm<br>
 WE ./textures/west_texture.xpm<br>
@@ -65,6 +63,14 @@ Math Functions for ray-casting calculations<br>
 Invalid Map Format: If your map is not in the correct format or has errors, the program will display an error message and exit gracefully.<br>
 Missing Textures: Ensure your .cub file points to the correct paths for texture images.<br>
 
+
+
+<img width="1681" alt="Screen Shot 2024-12-08 at 8 27 03 PM" src="https://github.com/user-attachments/assets/bd64fb4e-2851-4f99-8e60-5be38fae3a6f"><br>
+
+
+<img width="1681" alt="Screen Shot 2024-12-08 at 8 27 46 PM" src="https://github.com/user-attachments/assets/6998f526-8f4e-4353-8f8e-00810a509001"><br>
+
+<img width="1678" alt="Screen Shot 2024-12-08 at 8 26 26 PM" src="https://github.com/user-attachments/assets/72fc4a38-ef74-4311-bb1b-123eaadc57f6">
 
 
 
